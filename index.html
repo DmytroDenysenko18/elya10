@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Новорічний ювілей Елі</title>
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Comfortaa:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --pine-green: #0a3d31;
+            --berry-red: #b91d1d;
+            --gold: #d4af37;
+            --snow-white: #f8fafc;
+        }
+
+        body {
+            margin: 0; padding: 0;
+            font-family: 'Comfortaa', cursive;
+            background-color: var(--pine-green);
+            background-image: url('https://www.transparenttextures.com/patterns/snow.png');
+            color: var(--snow-white);
+            overflow-x: hidden; text-align: center;
+        }
+
+        #snow-container {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            pointer-events: none; z-index: 100;
+        }
+
+        .snowflake {
+            position: absolute; top: -10px; color: white;
+            user-select: none; animation: fall linear infinite;
+        }
+        @keyframes fall { to { transform: translateY(105vh) rotate(360deg); } }
+
+        header { padding: 40px 20px; background: radial-gradient(circle, rgba(185,29,29,0.3) 0%, rgba(10,61,49,0) 70%); }
+
+        h1 {
+            font-family: 'Great Vibes', cursive;
+            font-size: clamp(4rem, 12vw, 9rem);
+            color: var(--gold);
+            margin: 0; line-height: 0.9;
+            text-shadow: 0 0 20px rgba(212, 175, 55, 0.6);
+        }
+
+        .subtitle { 
+            font-size: clamp(1.2rem, 4vw, 2.2rem); 
+            margin-top: 25px; 
+            letter-spacing: 2px; 
+            font-weight: 700;
+        }
+
+        .dog-frame {
+            width: clamp(200px, 50vw, 320px); 
+            height: clamp(200px, 50vw, 320px); 
+            margin: 30px auto;
+            border-radius: 50%; border: 8px double var(--gold);
+            padding: 10px; background: var(--berry-red);
+            box-shadow: 0 0 40px rgba(0,0,0,0.5);
+        }
+        .dog-frame img { width: 100%; height: 100%; border-radius: 50%; object-fit: cover; border: 2px solid var(--gold); }
+
+        /* ТАЙМЕР */
+        .countdown { display: flex; justify-content: center; gap: 10px; margin: 30px auto; flex-wrap: wrap; }
+        .timer-item {
+            background: white; color: var(--pine-green);
+            padding: clamp(8px, 2vw, 12px); border-radius: 12px; 
+            min-width: clamp(60px, 15vw, 85px);
+            border-bottom: 4px solid var(--gold); box-shadow: 0 8px 15px rgba(0,0,0,0.3);
+        }
+        .timer-item span { display: block; font-size: clamp(1.2rem, 4vw, 2rem); font-weight: 700; color: var(--berry-red); }
+        .timer-item small { font-size: 0.6rem; text-transform: uppercase; font-weight: bold; }
+
+        .invitation-card {
+            background: var(--snow-white); color: #333;
+            max-width: 800px; width: 90%; margin: 0 auto 80px;
+            padding: clamp(20px, 5vw, 50px) 20px; border-radius: 30px;
+            position: relative; box-shadow: 0 30px 60px rgba(0,0,0,0.4);
+            border: 3px solid var(--gold);
+        }
+
+        h2 { font-family: 'Great Vibes', cursive; color: var(--berry-red); font-size: clamp(2.5rem, 8vw, 4rem); margin: 0; }
+
+        .info-grid { 
+            display: grid; 
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); 
+            gap: 15px; margin: 25px 0; 
+        }
+        .info-box { background: #fff; padding: 15px; border-radius: 12px; border: 2px solid var(--pine-green); }
+
+        .rsvp-form {
+            background: var(--pine-green); padding: clamp(15px, 4vw, 30px);
+            border-radius: 20px; color: white;
+            margin-top: 30px; border: 1px solid var(--gold);
+        }
+        input, select { width: 100%; padding: 12px; margin: 8px 0; border-radius: 8px; border: none; font-family: inherit; box-sizing: border-box; }
+        .submit-btn {
+            background: var(--gold); color: var(--pine-green);
+            border: none; padding: 15px; font-size: 1.1rem;
+            font-weight: 700; border-radius: 50px; cursor: pointer; width: 100%; margin-top: 10px;
+        }
+
+        footer { padding: 30px; font-family: 'Great Vibes', cursive; font-size: clamp(1.5rem, 5vw, 2.5rem); color: var(--gold); }
+
+        /* ТЕЛЕВІЗОРИ ТА ВЕЛИКІ ЕКРАНИ */
+        @media (min-width: 2000px) {
+            .invitation-card { max-width: 1200px; }
+            .dog-frame { width: 500px; height: 500px; }
+        }
+    </style>
+</head>
+<body onclick="playMusic()">
+
+    <div id="snow-container"></div>
+    <audio id="bgMusic" loop src="andy-williams-its-the-most-wonderful-time-of-the-year.mp3"></audio>
+
+    <header>
+        <h1>Еля</h1>
+        <div class="subtitle">🎉 ЮВІЛЕЙ 10 РОКІВ 🎉</div>
+        <div class="dog-frame">
+            <img src="IMG_7494.jpg" alt="Еля">
+        </div>
+
+        <div class="countdown">
+            <div class="timer-item"><span id="d">00</span><small>днів</small></div>
+            <div class="timer-item"><span id="h">00</span><small>год</small></div>
+            <div class="timer-item"><span id="m">00</span><small>хв</small></div>
+            <div class="timer-item"><span id="s">00</span><small>сек</small></div>
+        </div>
+    </header>
+
+    <div class="invitation-card">
+        <h2>Запрошення!</h2>
+        <p>Чекаю на вас біля ялинки, щоб разом відсвяткувати новорічні свята та мій 10-й День народження!</p>
+
+        <div class="info-grid">
+            <div class="info-box">
+                <b style="color: var(--berry-red);">КОЛИ</b><br>
+                7 січня 2026<br>о 18:00
+            </div>
+            <div class="info-box">
+                <b style="color: var(--berry-red);">ДЕ</b><br>
+                Резиденція Елі<br>Полтава вул. Грушевського 21 кв.23
+            </div>
+        </div>
+
+        <div class="rsvp-form">
+            <form action="https://formspree.io/f/mqapjbbz" method="POST">
+                <input type="text" name="name" placeholder="Ваше ім'я" required>
+                <input type="hidden" name="_to" value="dmytrodenysenko180389@gmail.com">
+                <select name="status">
+                    <option value="yes">Буду обов'язково!</option>
+                    <option value="no">На жаль, не зможу</option>
+                </select>
+                <button type="submit" class="submit-btn">Відправити ✨</button>
+            </form>
+        </div>
+        <footer>Ваша Еля 🐾</footer>
+    </div>
+
+    <script>
+        function updateTimer() {
+            // Дата: 7 січня 2026 року, 18:00
+            const target = new Date(2026, 0, 7, 18, 0, 0).getTime();
+            const now = new Date().getTime();
+            const distance = target - now;
+
+            const dEl = document.getElementById('d');
+            const hEl = document.getElementById('h');
+            const mEl = document.getElementById('m');
+            const sEl = document.getElementById('s');
+
+            if (!dEl) return;
+
+            if (distance > 0) {
+                const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const mins = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                const secs = Math.floor((distance % (1000 * 60)) / 1000);
+
+                dEl.textContent = String(days).padStart(2, '0');
+                hEl.textContent = String(hours).padStart(2, '0');
+                mEl.textContent = String(mins).padStart(2, '0');
+                sEl.textContent = String(secs).padStart(2, '0');
+            } else {
+                document.querySelector('.countdown').innerHTML = "<h2 style='color:white'>СВЯТО ПОЧАЛОСЯ! 🍰</h2>";
+            }
+        }
+
+        window.onload = function() {
+            updateTimer();
+            setInterval(updateTimer, 1000);
+        };
+
+        function createSnow() {
+            const container = document.getElementById('snow-container');
+            if(!container) return;
+            const flake = document.createElement('div');
+            flake.className = 'snowflake';
+            flake.innerHTML = '❅';
+            flake.style.left = Math.random() * 100 + 'vw';
+            flake.style.fontSize = Math.random() * 20 + 10 + 'px';
+            flake.style.opacity = Math.random();
+            flake.style.animationDuration = Math.random() * 3 + 4 + 's';
+            container.appendChild(flake);
+            setTimeout(() => flake.remove(), 7000);
+        }
+        setInterval(createSnow, 200);
+
+        function playMusic() {
+            const audio = document.getElementById('bgMusic');
+            if(audio) {
+                audio.volume = 0.3;
+                audio.play().catch(e => {});
+            }
+        }
+    </script>
+</body>
+</html>
